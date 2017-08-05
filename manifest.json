@@ -6,13 +6,13 @@
   "version": "1.0",
 
   "icons": {
-    "16": "icons/icon16.png",
-    "64": "icons/icon64.png",
-    "128": "icons/icon128.png"
+    "16": "resources/icons/icon16.png",
+    "64": "resources/icons/icon64.png",
+    "128": "resources/icons/icon128.png"
   },
 
   "browser_action": {
-    "default_icon": "icons/icon64.png",
+    "default_icon": "resources/icons/icon64.png",
     "default_title": "By Elliot Hillary"
   },
 
@@ -21,14 +21,14 @@
   ],
 
   "background": {
-    "scripts": ["background.js"]
+    "scripts": ["resources/background.js"]
   },
 
   "content_scripts": [
     {
       "run_at": "document_start",
-      "js": ["jquery.min.js","kingsrekt.js"],
-      "css": ["hide.css"],
+      "js": ["resources/jquery.min.js","resources/kingsrekt.js"],
+      "css": ["resources/hide.css"],
       "matches": ["https://kingsnet.kingswoodcollege.vic.edu.au/*"]
     }
   ]

@@ -7,8 +7,8 @@ function getMatchingPatternsFromResourcesFile(resources, comparisonURL) {
             pattern['files']['css'].forEach(function(stylesheet) {
                 returnMessages.push({type:'css',content:stylesheet['content']});
             });
-            pattern['files']['js'].forEach(function(script) {
-                returnMessages.push({type:'js',content:script['content']});
+            pattern['files']['json'].forEach(function(script) {
+                returnMessages.push({type:'json',content:script['content']});
             });
         }
     });
