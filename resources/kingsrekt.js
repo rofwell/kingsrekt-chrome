@@ -45,7 +45,6 @@ document.addEventListener("DOMContentLoaded", function() {
     });
 
     $(nonIconElements).css('font-family','Ubuntu');
-    $('body').css('opacity','1');
 
 
     // FORMERLY DASHBOARD.JS

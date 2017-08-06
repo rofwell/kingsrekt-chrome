@@ -2,8 +2,8 @@
   "manifest_version": 2,
 
   "name": "Kingsrekt",
-  "description": "Rekt with a T",
-  "version": "1.0",
+  "description": "An attempt to fix some of Kingsnet's problems.",
+  "version": "2.0",
 
   "icons": {
     "16": "resources/icons/icon16.png",
@@ -13,7 +13,7 @@
 
   "browser_action": {
     "default_icon": "resources/icons/icon64.png",
-    "default_title": "By Elliot Hillary"
+    "default_title": "You're welcome fam"
   },
 
   "permissions": [
@@ -28,7 +28,6 @@
     {
       "run_at": "document_start",
       "js": ["resources/jquery.min.js","resources/kingsrekt.js"],
-      "css": ["resources/hide.css"],
       "matches": ["https://kingsnet.kingswoodcollege.vic.edu.au/*"]
     }
   ]

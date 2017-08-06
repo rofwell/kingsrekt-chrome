@@ -27,12 +27,22 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse){
             var existsInStorage = Object.keys(items).indexOf('resources') > -1;
 
             // get the current version of the resources
-            fetch('http://kingsrekt.herokuapp.com').then(function(response) {
-                return response.text();
-            }).then(function(text) {
+            fetch('http://kingsrekt.herokuapp.com/version/').then(function(response) {
+                return response.json();
+            }).then(function(version) {
+                // check if manifest has the same version as the response's client version
+                fetch(chrome.extension.getURL('manifest.json')).then(function(re) {
+                    return re.json();
+                }).then(function(manifest) {
+                    console.log(manifest);
+                    if(version['client'] != manifest.version) {
+                        alert('There is a newer version of the Kingsrekt extension available.')
+                    }
+                });
+
                 // if it is not the saved version, set the version in storage and fetch the newest version of the resource
-                if(text != items['version'] || !existsInStorage) {
-                    chrome.storage.local.set({'version':text});
+                if(version['server'] != items['version'] || !existsInStorage) {
+                    chrome.storage.local.set({'version':version['server']});
                     fetch('http://kingsrekt.herokuapp.com/resource/').then(function(response) {
                         return response.json();
                     }).then(function(json) {
