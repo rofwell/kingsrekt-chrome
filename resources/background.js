@@ -59,7 +59,6 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse){
                 fetch(chrome.extension.getURL('manifest.json')).then(function(re) {
                     return re.json();
                 }).then(function(manifest) {
-                    console.log(manifest);
                     if(resource.version.client != manifest.version && clientURL == '/dashboard') {
                         alert('There is a newer version of the Kingsrekt extension available at https://kingsnet.herokuapp.com.')
                     }
