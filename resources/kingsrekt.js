@@ -14,21 +14,28 @@ chrome.runtime.onConnect.addListener(function(port) {
                 });
                 response.content.overrides.forEach(function(details) {
                     var newVal = details['value'].replace('{{x}}',$(details['selector']).attr(details['attribute']))
-                    console.log('replacing ' + details['selector'] + '\'s ' + details['attribute'] + ': ' + newVal);
                     $(details['selector']).attr(details['attribute'],newVal);
                 });
             } else {
                 document.addEventListener('DOMContentLoaded',function() {
                     response.content.moves.forEach(function(details) {
-                        console.log('moving ' + details[0] + ' before ' + details[1]);
                         $(details[0]).insertBefore(details[1]);
                     });
                     response.content.overrides.forEach(function(details) {
                         var newVal = details['value'].replace('{{x}}',$(details['selector']).attr(details['attribute']))
-                        console.log('replacing ' + details['selector'] + '\'s ' + details['attribute'] + ': ' + newVal);
-                        $(details['selector']).attr(details['attribute'],newVal);
+                        if(details['attribute'] == 'src' || details['attribute'] == 'style') {
+                            $(details['selector']).attr(details['attribute'],newVal);
+                        }
                     });
                 });
+            }
+        } else if (response.type == 'update') {
+            if(response.name == 'active' && response.content == true) {
+                if(document.readyState == 'interactive' || document.readyState == 'complete') {
+                    inject();
+                } else {
+                    document.addEventListener("DOMContentLoaded", inject);
+                }
             }
         }
     });
@@ -38,7 +45,7 @@ var port = chrome.runtime.connect({name: "kingsrekt"});
 
 chrome.runtime.sendMessage({action: "openChannel"},function(r){});
 
-document.addEventListener("DOMContentLoaded", function() {
+function inject() {
     // FORMERLY ALL.JS
     var nonIconElements = $('*').filter(function () { 
         return $(this).css('font-family').toLowerCase().indexOf('ff-editor') == -1
@@ -114,4 +121,4 @@ document.addEventListener("DOMContentLoaded", function() {
             $(this).text(text);
         });
     }
-});
+}
