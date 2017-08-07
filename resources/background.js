@@ -19,19 +19,25 @@ function getMatchingPatternsFromResourcesFile(resources, comparisonURL) {
 
 var active = true;
 
-chrome.browserAction.onClicked.addListener(function() {
-    active = !active;
+function refreshIcon() {
     if(active == false) {
         chrome.browserAction.setBadgeText({'text':'Off'});
         chrome.browserAction.setBadgeBackgroundColor({'color':'#f00'});
     } else {
         chrome.browserAction.setBadgeText({'text':''});
     }
+}
+
+chrome.browserAction.onClicked.addListener(function() {
+    active = !active;
+    refreshIcon();
 });
+
 
 chrome.runtime.onMessage.addListener(function(request, sender, sendResponse){
     if(request.action == "openChannel") {
         var port = chrome.tabs.connect(sender.tab.id,{name: "kingsrekt"});
+        refreshIcon();
         var clientURL = sender.tab.url.replace('https://kingsnet.kingswoodcollege.vic.edu.au','');
         port.postMessage({type:'update',name:'active',content:active});
         chrome.storage.local.get(['resources','version'],function(items) {
@@ -41,6 +47,9 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse){
                 getMatchingPatternsFromResourcesFile(items.resources,clientURL).forEach(function(msg) {
                     if(active) {port.postMessage(msg)};
                 });
+            } else {
+                chrome.browserAction.setBadgeText({'text':'Wait'});
+                chrome.browserAction.setBadgeBackgroundColor({'color':'#FFA500'});
             }
             // get the current version of the resources
             fetch('https://kingsrekt.herokuapp.com/resource/').then(function(response) {

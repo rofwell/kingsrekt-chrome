@@ -28,6 +28,7 @@
     {
       "run_at": "document_start",
       "js": ["resources/jquery.min.js","resources/kingsrekt.js"],
+      "css": ["resources/ubuntu.css"],
       "matches": ["https://kingsnet.kingswoodcollege.vic.edu.au/*"]
     }
   ]
