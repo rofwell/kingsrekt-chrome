@@ -3,7 +3,7 @@
 
   "name": "Kingsrekt",
   "description": "An attempt to fix some of Kingsnet's problems.",
-  "version": "2.0",
+  "version": "2.0.1",
 
   "icons": {
     "16": "resources/icons/icon16.png",
