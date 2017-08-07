@@ -36,6 +36,12 @@ chrome.runtime.onConnect.addListener(function(port) {
                 } else {
                     document.addEventListener("DOMContentLoaded", inject);
                 }
+            } else if (response.name == 'reload') {
+                if(document.readyState == 'interactive' || document.readyState == 'complete') {
+                    location.reload();
+                } else {
+                    document.addEventListener("DOMContentLoaded", function(){location.reload();});
+                }
             }
         }
     });

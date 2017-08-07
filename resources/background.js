@@ -35,44 +35,35 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse){
         var clientURL = sender.tab.url.replace('https://kingsnet.kingswoodcollege.vic.edu.au','');
         port.postMessage({type:'update',name:'active',content:active});
         chrome.storage.local.get(['resources','version'],function(items) {
-            console.log(items);
-
             var existsInStorage = Object.keys(items).indexOf('resources') > -1;
 
+            if(existsInStorage) {
+                getMatchingPatternsFromResourcesFile(items.resources,clientURL).forEach(function(msg) {
+                    if(active) {port.postMessage(msg)};
+                });
+            }
             // get the current version of the resources
-            fetch('https://kingsrekt.herokuapp.com/version/').then(function(response) {
+            fetch('https://kingsrekt.herokuapp.com/resource/').then(function(response) {
                 return response.json();
-            }).then(function(version) {
+            }).then(function(resource) {
                 // check if manifest has the same version as the response's client version
                 fetch(chrome.extension.getURL('manifest.json')).then(function(re) {
                     return re.json();
                 }).then(function(manifest) {
                     console.log(manifest);
-                    if(version['client'] != manifest.version) {
-                        alert('There is a newer version of the Kingsrekt extension available.')
+                    if(resource.version.client != manifest.version && clientURL == '/dashboard') {
+                        alert('There is a newer version of the Kingsrekt extension available at https://kingsnet.herokuapp.com.')
                     }
                 });
 
                 // if it is not the saved version, set the version in storage and fetch the newest version of the resource
-                if(version['server'] != items['version'] || !existsInStorage) {
-                    chrome.storage.local.set({'version':version['server']});
-                    fetch('https://kingsrekt.herokuapp.com/resource/').then(function(response) {
-                        return response.json();
-                    }).then(function(json) {
-                        console.log(json);
-                        // set resources in storage
-                        chrome.storage.local.set({'resources':json});
+                if(resource.version.server != items.version || !existsInStorage) {
+                    chrome.storage.local.set({'version':resource.version.server, 'resources':resource.resources});
 
-                        // send the resources over to the server
-                        getMatchingPatternsFromResourcesFile(json,clientURL).forEach(function(msg) {
-                            if(active) {port.postMessage(msg)};
-                        });
-                    });
+                    //tell the client to reload
+                    if(active) {port.postMessage({type:'update',name:'reload'})};
                 // if the stored version is current, use the stored resources
                 } else {
-                    getMatchingPatternsFromResourcesFile(items['resources'],clientURL).forEach(function(msg) {
-                        if(active) {port.postMessage(msg)};
-                    });
                 }
             });
         });
