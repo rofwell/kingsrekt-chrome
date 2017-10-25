@@ -1,5 +1,6 @@
-chrome.runtime.onConnect.addListener(function(port) {
-    console.assert(port.name == "kingsrekt");
+var port;
+chrome.runtime.onConnect.addListener(function(p) {
+    port = p;
     port.onMessage.addListener(function(response) {
         console.log(response);
         if(response.type == 'css') {
@@ -47,9 +48,7 @@ chrome.runtime.onConnect.addListener(function(port) {
     });
 });
 
-var port = chrome.runtime.connect({name: "kingsrekt"});
-
-chrome.runtime.sendMessage({action: "openChannel"},function(r){});
+chrome.runtime.sendMessage({action: "openChannel",send:"resources"},function(r){});
 
 function inject() {
     // FORMERLY ALL.JS

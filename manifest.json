@@ -21,15 +21,21 @@
   ],
 
   "background": {
-    "scripts": ["resources/background.js"]
+    "scripts": ["resources/kr-background.js"]
   },
 
   "content_scripts": [
     {
       "run_at": "document_start",
-      "js": ["resources/jquery.min.js","resources/kingsrekt.js"],
+      "js": ["resources/jquery.min.js","resources/kr-page.js"],
       "css": ["resources/ubuntu.css"],
       "matches": ["https://kingsnet.kingswoodcollege.vic.edu.au/*"]
+    },
+    {
+      "run_at": "document_start",
+      "js": ["resources/sortabletasks.js"],
+      "css": [],
+      "matches": ["https://kingsnet.kingswoodcollege.vic.edu.au/set-tasks*"]
     }
   ]
 }
