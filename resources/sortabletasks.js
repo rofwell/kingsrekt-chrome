@@ -29,8 +29,10 @@ function setupTasks(priorities) {
         let status = document.querySelector("#ff-notice-" + items[i].dataset.ffId + " .ff-progress-status");
         let j = i;
         items[i].dataset.priority = 0;
-        if(Object.keys(priorities).indexOf(items[i].dataset.ffId) > -1) {
-            items[i].dataset.priority = priorities[items[i].dataset.ffId];
+        if(priorities != undefined) {
+            if(Object.keys(priorities).indexOf(items[i].dataset.ffId) > -1) {
+                items[i].dataset.priority = priorities[items[i].dataset.ffId];
+            }
         }
         status.onclick = () => changeTaskPriority(items[j]);
     }

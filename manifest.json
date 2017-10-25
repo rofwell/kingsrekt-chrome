@@ -32,7 +32,6 @@
       "matches": ["https://kingsnet.kingswoodcollege.vic.edu.au/*"]
     },
     {
-      "run_at": "document_start",
       "js": ["resources/sortabletasks.js"],
       "css": [],
       "matches": ["https://kingsnet.kingswoodcollege.vic.edu.au/set-tasks*"]
