@@ -69,7 +69,7 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse){
                     chrome.browserAction.setBadgeBackgroundColor({'color':'#FFA500'});
                 }
                 // get the current version of the resources
-                fetch('https://kingsrekt.herokuapp.com/resource/?new=1&debug=1').then(function(response) {
+                fetch('https://kingsrekt.herokuapp.com/resource/').then(function(response) {
                     return response.json();
                 }).then(function(resource) {
                     // check if manifest has the same version as the response's client version
