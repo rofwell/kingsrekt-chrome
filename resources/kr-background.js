@@ -77,7 +77,7 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse){
                         return re.json();
                     }).then(function(manifest) {
                         if(resource.version.client != manifest.version && clientURL == '/dashboard') {
-                            alert('There is a newer version of the Kingsrekt extension available at https://kingsnet.herokuapp.com.')
+                            alert('There is a newer version of the Kingsrekt extension available at https://kingsrekt.herokuapp.com.')
                         }
                     });
 
