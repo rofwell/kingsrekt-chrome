@@ -3,7 +3,7 @@
 
   "name": "Kingsrekt",
   "description": "An attempt to fix some of Kingsnet's problems.",
-  "version": "3.0.1",
+  "version": "3.1",
 
   "icons": {
     "16": "resources/icons/icon16.png",
@@ -29,12 +29,12 @@
       "run_at": "document_start",
       "js": ["resources/jquery.min.js","resources/kr-page.js"],
       "css": ["resources/ubuntu.css"],
-      "matches": ["https://kingsnet.kingswoodcollege.vic.edu.au/*"]
+      "matches": ["https://kingswood.fireflycloud.net.au/*"]
     },
     {
       "js": ["resources/sortabletasks.js"],
       "css": [],
-      "matches": ["https://kingsnet.kingswoodcollege.vic.edu.au/set-tasks*"]
+      "matches": ["https://kingswood.fireflycloud.net.au/set-tasks*"]
     }
   ]
 }
